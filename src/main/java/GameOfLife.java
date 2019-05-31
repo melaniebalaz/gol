@@ -1,17 +1,6 @@
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameOfLife {
-    private int[][] board;
-
-    public GameOfLife(int x, int y) {
-        board = new int[x][y];
-        initializeBoard();
-    }
-
-    public GameOfLife(int[][] board) {
-        this.board = board;
-    }
 
     public int[][] evolveBoard(int[][] board) {
         return evolveBoard(board, 1, false);
@@ -22,7 +11,7 @@ public class GameOfLife {
             int[][] evolvedBoard = board.clone();
             for (int x = 0; x < board.length; x++) {
                 for (int y = 0; y < board[x].length; y++) {
-                    evolvedBoard[x][y] = mapToNumber(mapToCell(board[x][y]).evolve(getNeighborCount(x, y)));
+                    evolvedBoard[x][y] = mapToNumber(mapToCell(board[x][y]).evolve(getNeighborCount(board, x, y)));
                     if (visualization) visualizeBoard(evolvedBoard);
                 }
             }
@@ -38,17 +27,18 @@ public class GameOfLife {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
-    public int getNeighborCount(int x, int y) {
-        return accessCell(x - 1, y - 1) +
-                accessCell(x - 1, y) +
-                accessCell(x - 1, y + 1) +
-                accessCell(x, y - 1) +
-                accessCell(x, y + 1) +
-                accessCell(x + 1, y - 1) +
-                accessCell(x + 1, y + 1) +
-                accessCell(x + 1, y);
+    public int getNeighborCount(int[][] board, int x, int y) {
+        return accessCell(board, x - 1, y - 1) +
+                accessCell(board, x - 1, y) +
+                accessCell(board, x - 1, y + 1) +
+                accessCell(board, x, y - 1) +
+                accessCell(board, x, y + 1) +
+                accessCell(board, x + 1, y - 1) +
+                accessCell(board, x + 1, y + 1) +
+                accessCell(board, x + 1, y);
     }
 
     private Cell mapToCell(int number) {
@@ -61,7 +51,7 @@ public class GameOfLife {
         else return 0;
     }
 
-    private int accessCell(int x, int y) {
+    private int accessCell(int[][] board, int x, int y) {
         try {
             return board[x][y];
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -69,7 +59,8 @@ public class GameOfLife {
         }
     }
 
-    private int[][] initializeBoard() {
+    public int[][] initializeBoard(int x, int y) {
+        int[][] board = new int[x][y];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 board[i][j] = ThreadLocalRandom.current().nextInt(0, 1 + 1);

@@ -7,15 +7,8 @@ public class GameOfLifeTest {
 
     @Test
     public void gameBoardTest() {
-        int[][] gameBoard = new int[][] {
-                {1,1,1},
-                {0,0,1},
-                {0,0,0}
-        };
-
-        GameOfLife gol = new GameOfLife(gameBoard);
-        int[][] evolvedBoard = gol.evolveBoard(gameBoard);
-        gol.visualizeBoard(evolvedBoard);
+       GameOfLife gol = new GameOfLife();
+       gol.evolveBoard(gol.initializeBoard(5,5),5,true);
 
     }
 
@@ -27,8 +20,8 @@ public class GameOfLifeTest {
                 {1,1,1}
         };
 
-        GameOfLife gol = new GameOfLife(fullBoard);
-        int neighborCount = gol.getNeighborCount(1, 1);
+        GameOfLife gol = new GameOfLife();
+        int neighborCount = gol.getNeighborCount(fullBoard,1, 1);
         int expectedNeighborCount = 8;
         assertThat(neighborCount,equalTo(expectedNeighborCount));
     }
@@ -41,8 +34,8 @@ public class GameOfLifeTest {
                 {1,1,1}
         };
 
-        GameOfLife gol = new GameOfLife(fullBoard);
-        int neighborCount = gol.getNeighborCount(0, 0);
+        GameOfLife gol = new GameOfLife();
+        int neighborCount = gol.getNeighborCount(fullBoard,0, 0);
         int expectedNeighborCount = 3;
         assertThat(neighborCount,equalTo(expectedNeighborCount));
     }
