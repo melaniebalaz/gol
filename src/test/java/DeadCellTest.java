@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -14,9 +15,10 @@ public class DeadCellTest {
         assertThat(evolvedCell,instanceOf(DeadCell.class));
     }
 
+    @Test
     public void evolveReturnsDeadCellForExactly3Neighbors(){
         Cell deadCell = new DeadCell();
         Cell evolvedCell = deadCell.evolve(3);
-        assertThat(evolvedCell,instanceOf(DeadCell.class));
+        assertThat(evolvedCell,instanceOf(AliveCell.class));
     }
 }
