@@ -12,10 +12,10 @@ public class GameOfLife {
             for (int x = 0; x < board.length; x++) {
                 for (int y = 0; y < board[x].length; y++) {
                     evolvedBoard[x][y] = mapToNumber(mapToCell(board[x][y]).evolve(getNeighborCount(board, x, y)));
-                    if (visualization) visualizeBoard(evolvedBoard);
                 }
             }
-            board = evolvedBoard;
+            if (visualization) visualizeBoard(evolvedBoard);
+            board = evolvedBoard.clone();
         }
         return board;
     }

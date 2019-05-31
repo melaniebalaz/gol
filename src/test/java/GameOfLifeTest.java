@@ -8,7 +8,7 @@ public class GameOfLifeTest {
     @Test
     public void gameBoardTest() {
        GameOfLife gol = new GameOfLife();
-       gol.evolveBoard(gol.initializeBoard(5,5),5,true);
+       gol.evolveBoard(gol.initializeBoard(5,5),1,true);
 
     }
 
