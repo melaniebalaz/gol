@@ -3,11 +3,20 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class GameBoardTest {
+public class GameOfLifeTest {
 
     @Test
     public void gameBoardTest() {
-        GameBoard board = new GameBoard(3,3);
+        int[][] gameBoard = new int[][] {
+                {1,1,1},
+                {0,0,1},
+                {0,0,0}
+        };
+
+        GameOfLife gol = new GameOfLife(gameBoard);
+        int[][] evolvedBoard = gol.evolveBoard(gameBoard);
+        gol.visualizeBoard(evolvedBoard);
+
     }
 
     @Test
@@ -18,8 +27,8 @@ public class GameBoardTest {
                 {1,1,1}
         };
 
-        GameBoard board = new GameBoard(fullBoard);
-        int neighborCount = board.getNeighborCount(1, 1);
+        GameOfLife gol = new GameOfLife(fullBoard);
+        int neighborCount = gol.getNeighborCount(1, 1);
         int expectedNeighborCount = 8;
         assertThat(neighborCount,equalTo(expectedNeighborCount));
     }
@@ -32,8 +41,8 @@ public class GameBoardTest {
                 {1,1,1}
         };
 
-        GameBoard board = new GameBoard(fullBoard);
-        int neighborCount = board.getNeighborCount(0, 0);
+        GameOfLife gol = new GameOfLife(fullBoard);
+        int neighborCount = gol.getNeighborCount(0, 0);
         int expectedNeighborCount = 3;
         assertThat(neighborCount,equalTo(expectedNeighborCount));
     }
