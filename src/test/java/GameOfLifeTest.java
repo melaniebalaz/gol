@@ -39,4 +39,61 @@ public class GameOfLifeTest {
         int expectedNeighborCount = 3;
         assertThat(neighborCount,equalTo(expectedNeighborCount));
     }
+
+    @Test
+    public void getNeighborCountReturns1On5x5BoardForCellWhichIsPartOfOscillatorPattern(){
+        int[][] fullBoard = new int[][] {
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+                {0,1,1,1,0},
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+        };
+
+        GameOfLife gol = new GameOfLife();
+        int neighborCount = gol.getNeighborCount(fullBoard,2, 1);
+        int expectedNeighborCount = 1;
+        assertThat(neighborCount,equalTo(expectedNeighborCount));
+    }
+
+
+    @Test
+    public void evolveBoardReturnsSameStateAsBeforeForBlockPattern(){
+        int[][] stillLife = new int[][] {
+                {0,0,0,0},
+                {0,1,1,0},
+                {0,1,1,0},
+                {0,0,0,0}
+        };
+
+        GameOfLife gol = new GameOfLife();
+        int[][] evolvedBoard = gol.evolveBoard(stillLife);
+        assertThat(evolvedBoard,equalTo(stillLife));
+
+    }
+
+    @Test
+    public void evolveBoardReturnsOscillatedStateForBlinkerPattern(){
+        int[][] blinkerStart = new int[][] {
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+                {0,1,1,1,0},
+                {0,0,0,0,0},
+                {0,0,0,0,0},
+        };
+
+        int[][] blinkerExpected = new int[][] {
+                {0,0,0,0,0},
+                {0,0,1,0,0},
+                {0,0,1,0,0},
+                {0,0,1,0,0},
+                {0,0,0,0,0},
+        };
+
+        GameOfLife gol = new GameOfLife();
+        gol.visualizeBoard(blinkerStart);
+        int[][] evolvedBoard = gol.evolveBoard(blinkerStart,1,true);
+        assertThat(evolvedBoard,equalTo(blinkerExpected));
+
+    }
 }

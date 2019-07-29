@@ -7,8 +7,8 @@ public class GameOfLife {
     }
 
     public int[][] evolveBoard(int[][] board, int evolveSteps, boolean visualization) {
-        for (int i = 0; i <= evolveSteps; i++) {
-            int[][] evolvedBoard = board.clone();
+        for (int i = 0; i < evolveSteps; i++) {
+            int[][] evolvedBoard = new int[board.length][board[0].length];
             for (int x = 0; x < board.length; x++) {
                 for (int y = 0; y < board[x].length; y++) {
                     evolvedBoard[x][y] = mapToNumber(mapToCell(board[x][y]).evolve(getNeighborCount(board, x, y)));
