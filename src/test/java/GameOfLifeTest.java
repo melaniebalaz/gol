@@ -73,7 +73,7 @@ public class GameOfLifeTest {
     }
 
     @Test
-    public void evolveBoardReturnsOscillatedStateForBlinkerPattern(){
+    public void evolveBoardReturnsOscillatedStateForBlinkerPatternInOneEvolveStep(){
         int[][] blinkerStart = new int[][] {
                 {0,0,0,0,0},
                 {0,0,0,0,0},
@@ -94,6 +94,33 @@ public class GameOfLifeTest {
         gol.visualizeBoard(blinkerStart);
         int[][] evolvedBoard = gol.evolveBoard(blinkerStart,1,true);
         assertThat(evolvedBoard,equalTo(blinkerExpected));
+
+    }
+
+    @Test
+    public void evolveBoardReturnsOscillatedStateForToadPatternInOneEvolveStep(){
+        int[][] toadStart = new int[][] {
+                {0,0,0,0,0,0},
+                {0,0,0,0,0,0},
+                {0,0,1,1,1,0},
+                {0,1,1,1,0,0},
+                {0,0,0,0,0,0},
+                {0,0,0,0,0,0},
+        };
+
+        int[][] toadExpected = new int[][] {
+                {0,0,0,0,0,0},
+                {0,0,0,1,0,0},
+                {0,1,0,0,1,0},
+                {0,1,0,0,1,0},
+                {0,0,1,0,0,0},
+                {0,0,0,0,0,0},
+        };
+
+        GameOfLife gol = new GameOfLife();
+        gol.visualizeBoard(toadStart);
+        int[][] evolvedBoard = gol.evolveBoard(toadStart,1,true);
+        assertThat(evolvedBoard,equalTo(toadExpected));
 
     }
 }
